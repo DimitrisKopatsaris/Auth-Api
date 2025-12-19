@@ -13,7 +13,7 @@ services:
     image: grafana/promtail:2.9.4
     container_name: project1-promtail-1
     volumes:
-      - ./AuthApi/Logs:/var/log/authapi               # your Serilog JSON logs
+      - ./AuthApi/Logs:/var/log/authapi               #Serilog JSON logs
       - ./promtail-config.yml:/etc/promtail/config.yml:ro
     command: ["-config.file=/etc/promtail/config.yml"]
     depends_on:
