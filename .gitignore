@@ -17,6 +17,8 @@ appsettings.*.local.json
 # Docker runtime data
 grafana-data/
 
+Logs/
+
 # OS files
 Thumbs.db
 .DS_Store
