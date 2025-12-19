@@ -1,0 +1,22 @@
+# Build output
+bin/
+obj/
+
+# IDE
+.vs/
+.vscode/
+
+# Logs
+*.log
+
+# Environment / secrets
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.local.json
+
+# Docker runtime data
+grafana-data/
+
+# OS files
+Thumbs.db
+.DS_Store
