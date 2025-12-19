@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+  loki:
+    image: grafana/loki:2.9.4
+    container_name: project1-loki-1
+    command: ["-config.file=/etc/loki/local-config.yaml"]
+    ports:
+      - "3100:3100"
+    restart: unless-stopped
+
+  promtail:
+    image: grafana/promtail:2.9.4
+    container_name: project1-promtail-1
+    volumes:
+      - ./AuthApi/Logs:/var/log/authapi               # your Serilog JSON logs
+      - ./promtail-config.yml:/etc/promtail/config.yml:ro
+    command: ["-config.file=/etc/promtail/config.yml"]
+    depends_on:
+      - loki
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: project1-prometheus-1
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:11.1.0
+    container_name: project1-grafana-1
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      # optional: speed up provisioning refreshes
+      - GF_LOG_LEVEL=info
+    depends_on:
+      - prometheus
+      - loki
+    volumes:
+      # ✅ Persist dashboards/users/etc
+      - ./grafana-data:/var/lib/grafana
+      # ✅ Auto-provision datasources & dashboards from files
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    restart: unless-stopped

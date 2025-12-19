@@ -1,0 +1,11 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'authapi'
+    metrics_path: /metrics/prometheus
+    scheme: http
+    static_configs:
+      # API runs on the host at port 5215
+      - targets: ['host.docker.internal:5215']
