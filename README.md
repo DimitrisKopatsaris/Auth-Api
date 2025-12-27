@@ -114,6 +114,8 @@ For local development:
 Use appsettings.Development.json (gitignored)
 Or environment variables
 
+---
+
 📎 Why This Project Exists
 This project was built as part of my backend engineering portfolio to demonstrate:
 Secure authentication design
@@ -122,8 +124,11 @@ Observability-aware development
 Clean separation of concerns
 Production-oriented thinking in ASP.NET Core
 
+---
+
 ⭐ Recruiter Note
 This repository is one of my primary portfolio projects and is pinned on my GitHub profile alongside other production-style backend services.
+
 
 
 
